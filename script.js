@@ -1,3 +1,4 @@
+// question bank for the quiz
 const questionBank = [{
     number: 1,
     question: "question1",
@@ -80,16 +81,21 @@ const questionBank = [{
     correct: 3
 }];
 
+// dob elements
 const board = document.body.querySelector("main");
+const start_buttn = document.body.querySelector("#start");
+// global variables
 let leaderBoardPlayers = [];
 let currentName;
 let currentQuestionNumber = 1;
-const start_buttn = document.body.querySelector("#start");
 const answers = [];
 let quiz;
 
+// add event listener to start button
 start_buttn.setAttribute("onclick", "startQuiz()");
 
+// show top players on leader board 
+// couldn't complete it because the time is up and a don't have enough experience with local storage
 let leaderBoardShowPlayers = () => {
     let tableRows = document.body.querySelectorAll("table tr");
     for (let i = 0; i < leaderBoardPlayers.length; i++)
@@ -97,9 +103,10 @@ let leaderBoardShowPlayers = () => {
 };
 leaderBoardShowPlayers();
 
-
+// function for starting the quiz
 let startQuiz = () => {
     currentName = document.body.querySelector("input").value;
+    // if the user didn't enter his/her name the quiz will not begin and the app will alert the user to enter the name
     if (currentName == "")
         return alert("Please Enter your name to start the quiz");
     quiz = document.body.querySelector("#question");
@@ -111,6 +118,7 @@ let startQuiz = () => {
     loadQuestion("start");
 };
 
+// function for loadin the next question after finishing the current one
 let loadQuestion = (answer) => {
         if (currentQuestionNumber > 11)
             return finalScoreDisplay();
@@ -130,6 +138,7 @@ let loadQuestion = (answer) => {
     currentQuestionNumber++;
 };
 
+// display the calculated score after finshing the quiz
 let finalScoreDisplay = () => {
     quiz.innerHTML = `<div id="empty"></div>
     <div id="final-score">
@@ -142,6 +151,7 @@ let finalScoreDisplay = () => {
     <div id="empty"></div>`;
 };
 
+// handling the score of each question when the user answer it
 let collectScores = (answer) => {
     if (answer == "start")
         return;
@@ -154,6 +164,7 @@ let collectScores = (answer) => {
     else answers.push(0);
 };
 
+// calculate the final score after finshing the quiz
 let calculateScore = () => {
     let sum = 0;
     for (let i = 0; i < answers.length; i++)
