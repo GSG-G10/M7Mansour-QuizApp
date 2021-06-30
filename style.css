@@ -45,6 +45,15 @@ input {
     font-size: 36px;
 }
 
+#start:hover {
+    background-color: #1dac1b;
+    cursor: pointer;
+}
+
+#start:active {
+    background-color: rgb(12, 109, 20);
+}
+
 #Leader_board {
     width: 600px;
     height: 330px;
@@ -82,6 +91,7 @@ table td {
     margin: auto;
     background: #666B6E;
     border-radius: 20px;
+    display: none;
 }
 
 .question-header {
@@ -159,4 +169,34 @@ table td {
     left: 43%;
     margin-top: 15px;
     margin-bottom: 15px;
+}
+
+#final-score {
+    width: 529px;
+    height: 119px;
+    background: #9DC8E4;
+    border-radius: 20px;
+    margin: auto;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: xx-large;
+}
+
+#empty {
+    height: 50px;
+}
+
+#score-value {
+    width: 442px;
+    height: 227px;
+    background: #2AABE4;
+    border-radius: 10px;
+    margin: auto;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: xx-large;
 }
