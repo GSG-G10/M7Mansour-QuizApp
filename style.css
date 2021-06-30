@@ -1,0 +1,77 @@
+body {
+    font-family: sans-serif;
+    background-image: url(https://img.wallpapersafari.com/desktop/1680/1050/50/98/3HeCQc.jpg);
+}
+
+#container {
+    width: 70%;
+    margin: auto;
+}
+
+h1 {
+    text-align: center;
+    margin: 50px;
+    color: #0E0ADF;
+    font-size: 48px;
+}
+
+h3 {
+    margin-bottom: 40px;
+}
+
+input {
+    display: block;
+    background: #C0D3DF;
+    border-radius: 10px;
+    width: 295px;
+    height: 63px;
+    left: 572px;
+    top: 459px;
+    font-size: 30px;
+    margin: auto;
+}
+
+#start {
+    position: relative;
+    left: 44%;
+    margin-top: 20px;
+    background: #1EC81B;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    width: 143px;
+    height: 52px;
+    font-size: 36px;
+}
+
+#Leader_board {
+    width: 600px;
+    height: 362px;
+    left: 420px;
+    top: 627px;
+    background: #268AA9;
+    border-radius: 5px;
+    margin: auto;
+}
+
+#Leader_board h2 {
+    position: relative;
+    text-align: center;
+    top: 30px;
+    margin: 30px;
+}
+
+table {
+    width: 100%;
+}
+
+tr {
+    width: 100%;
+    margin: auto;
+}
+
+table td {
+    position: relative;
+    left: 30px;
+}
