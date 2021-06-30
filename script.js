@@ -5,6 +5,7 @@ const questionBank = [{
     answer2: "answer1.2",
     answer3: "answer1.3",
     answer4: "answer1.4",
+    correct: 3
 }, {
     number: 2,
     question: "question2",
@@ -12,6 +13,7 @@ const questionBank = [{
     answer2: "answer2.2",
     answer3: "answer2.3",
     answer4: "answer2.4",
+    correct: 4
 }, {
     number: 3,
     question: "question3",
@@ -19,6 +21,7 @@ const questionBank = [{
     answer2: "answer3.2",
     answer3: "answer3.3",
     answer4: "answer3.4",
+    correct: 2
 }, {
     number: 4,
     question: "question4",
@@ -26,13 +29,15 @@ const questionBank = [{
     answer2: "answer4.2",
     answer3: "answer4.3",
     answer4: "answer4.4",
+    correct: 1
 }, {
     number: 5,
-    question: "question1",
+    question: "question5",
     answer1: "answer5.1",
     answer2: "answer5.2",
     answer3: "answer5.3",
     answer4: "answer5.4",
+    correct: 2
 }, {
     number: 6,
     question: "question6",
@@ -40,6 +45,7 @@ const questionBank = [{
     answer2: "answer6.2",
     answer3: "answer6.3",
     answer4: "answer6.4",
+    correct: 3
 }, {
     number: 7,
     question: "question7",
@@ -47,6 +53,7 @@ const questionBank = [{
     answer2: "answer7.2",
     answer3: "answer7.3",
     answer4: "answer7.4",
+    correct: 4
 }, {
     number: 8,
     question: "question8",
@@ -54,6 +61,7 @@ const questionBank = [{
     answer2: "answer8.2",
     answer3: "answer8.3",
     answer4: "answer8.4",
+    correct: 1
 }, {
     number: 9,
     question: "question9",
@@ -61,6 +69,7 @@ const questionBank = [{
     answer2: "answer9.2",
     answer3: "answer9.3",
     answer4: "answer9.4",
+    correct: 2
 }, {
     number: 10,
     question: "question10",
@@ -68,6 +77,7 @@ const questionBank = [{
     answer2: "answer10.2",
     answer3: "answer10.3",
     answer4: "answer10.4",
+    correct: 3
 }];
 
 const board = document.body.querySelector("main");
@@ -75,6 +85,8 @@ let leaderBoardPlayers = [];
 let currentName;
 let currentQuestionNumber = 1;
 const start_buttn = document.body.querySelector("#start");
+const answers = [];
+let quiz;
 
 start_buttn.setAttribute("onclick", "startQuiz()");
 
@@ -90,25 +102,61 @@ let startQuiz = () => {
     currentName = document.body.querySelector("input").value;
     if (currentName == "")
         return alert("Please Enter your name to start the quiz");
-    let quiz = document.body.querySelector("#question");
+    quiz = document.body.querySelector("#question");
     quiz.style.display = "block";
     board.innerHTML = quiz.outerHTML;
     document.body.querySelector("#question").innerHTML = "";
     board.style.margin = "100px";
-    loadQuestion();
-}
+    document.body.querySelector("#next").setAttribute("onclick", "loadQuestion(this.id)");
+    loadQuestion("start");
+};
 
-let loadQuestion = () => {
-    const question_text = document.body.querySelector("#question-text p");
-    const options = document.body.querySelectorAll(".answer p");
-    const qustion_number = document.body.querySelector("#question-num");
-    question_text.innerHTML = questionBank[currentQuestionNumber - 1].question;
-    qustion_number.innerHTML = questionBank[currentQuestionNumber - 1].number;
-    for (let i = 0; i < options.length; i++) {
-        options[i].innerHTML = questionBank[currentQuestionNumber - 1][`answer${i + 1}`];
-        console.log("F");
+let loadQuestion = (answer) => {
+        if (currentQuestionNumber > 11)
+            return finalScoreDisplay();
+        collectScores(answer);
+        if (currentQuestionNumber == 11)
+            return finalScoreDisplay();
+        console.log(currentQuestionNumber);
+        const question_text = document.body.querySelector("#question-text p");
+        const options = document.body.querySelectorAll(".answer");
+        const qustion_number = document.body.querySelector("#question-num");
+        question_text.innerHTML = questionBank[currentQuestionNumber - 1].question;
+        qustion_number.innerHTML = questionBank[currentQuestionNumber - 1].number;
+        for (let i = 0; i < options.length; i++) {
+            options[i].setAttribute("onclick", "loadQuestion(this.id)");
+            options[i].innerHTML = `<p>${questionBank[currentQuestionNumber - 1][`answer${i + 1}`]}</p>`;
     }
-
-    console.log(questionBank[currentQuestionNumber - 1].number);
     currentQuestionNumber++;
+};
+
+let finalScoreDisplay = () => {
+    quiz.innerHTML = `<div id="empty"></div>
+    <div id="final-score">
+        <p>Your Score is : </p>
+    </div>
+    <div id="score-value">
+        <p>${calculateScore()} / 10</p>
+    </div>
+    <div id="empty"></div>
+    <div id="empty"></div>`;
+};
+
+let collectScores = (answer) => {
+    if (answer == "start")
+        return;
+    if (answer == "next")
+        return answers.push(0);
+    answer = answer.substr(answer.length - 1);
+    console.log(questionBank[currentQuestionNumber - 2].correct , answer , currentQuestionNumber);
+    if (answer == questionBank[currentQuestionNumber - 2].correct)
+        answers.push(1);
+    else answers.push(0);
+};
+
+let calculateScore = () => {
+    let sum = 0;
+    for (let i = 0; i < answers.length; i++)
+        sum += answers[i];
+    return sum;
 }
