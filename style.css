@@ -76,3 +76,87 @@ table td {
     text-align: center;
     line-height: 40px;
 }
+
+#question {
+    width: 80%;
+    margin: auto;
+    background: #666B6E;
+    border-radius: 20px;
+}
+
+.question-header {
+    display: flex;
+    width: 50%;
+}
+
+.question-header:first-child {
+    justify-content: flex-end;
+}
+
+.question-header:last-child {
+    justify-content: center;
+}
+
+.question-header span {
+    width: 20%;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    color: #FFFFFF;
+}
+
+#question-text {
+    display: flex;
+    width: 70%;
+    height: 192px;
+    background: #9DC8E4;
+    border-radius: 20px;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+#quest-head-cont {
+    display: flex;
+    justify-content: space-between;
+}
+
+#answers {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 60%;
+    margin: auto;
+    margin-top: 50px;
+    height: 160px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    height: 35%;
+}
+
+.answer {
+    background: #2AABE4;
+    border-radius: 25px;
+    width: 40%;
+}
+
+.answer p {
+    text-align: center;
+    font-weight: normal;
+    font-size: large;
+}
+
+#next {
+    width: 120px;
+    height: 40px;
+    background: #FFCD24;
+    border-radius: 25px;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    left: 43%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
