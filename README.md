@@ -1,12 +1,12 @@
-** Quiz Lite **
+<strong> Quiz Lite </strong>
 
-By : ** Mohammad H Mansour **
+By : <strong> Mohammad H Mansour </strong>
 
 My first project working with Gaza Sky Geeks team , it allowed me to practice my knowledge and gain a good experience.
 
 This site is a simple site that allow a user to take a certain quiz and measure how much knowledge does he have about the quiz subject.
 
-** I have divided this website into many sections so I can work on each one separetly, at the end I can merge these sections into a single file that is ready for delivery. These sections as follow : **
+<strong> I have divided this website into many sections so I can work on each one separetly, at the end I can merge these sections into a single file that is ready for delivery. These sections as follow : </strong>
 
 1. "HTML" section: This section contains the html code and the general structure of the website.
 
@@ -14,7 +14,7 @@ This site is a simple site that allow a user to take a certain quiz and measure 
 
 3. "JS" section : This section contains the js code that will manipulate the code of the pervious sections and make the website interactive with the user
 
-** The following points summarize the user story: **
+<strong> The following points summarize the user story: </strong>
 
 As a client 
 
