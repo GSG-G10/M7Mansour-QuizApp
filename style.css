@@ -152,6 +152,15 @@ table td {
     width: 40%;
 }
 
+.answer:hover {
+    background: #2a99c9;
+    cursor: pointer;
+}
+
+.answer:active {
+    background-color: #2c8fb9;
+}
+
 .answer p {
     text-align: center;
     font-weight: normal;
@@ -169,6 +178,15 @@ table td {
     left: 43%;
     margin-top: 15px;
     margin-bottom: 15px;
+}
+
+#next:hover {
+    background-color: #e9bb26;
+    cursor: pointer;
+}
+
+#next:active {
+    background-color: #d4ab23;
 }
 
 #final-score {
