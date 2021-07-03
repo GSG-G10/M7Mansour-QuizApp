@@ -98,6 +98,8 @@ start_buttn.setAttribute("onclick", "startQuiz()");
 // couldn't complete it because the time is up and a don't have enough experience with local storage
 let leaderBoardShowPlayers = () => {
     leaderBoardPlayers = localStorage.getItem("players").split(",");
+    if (!leaderBoardPlayers)
+        return;
     let tableRows = document.body.querySelectorAll("table tr");
     for (let i = 0; i < leaderBoardPlayers.length; i++) {
         let temp = leaderBoardPlayers[i].split("-");
