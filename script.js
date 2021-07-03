@@ -97,9 +97,12 @@ start_buttn.setAttribute("onclick", "startQuiz()");
 // show top players on leader board 
 // couldn't complete it because the time is up and a don't have enough experience with local storage
 let leaderBoardShowPlayers = () => {
+    leaderBoardPlayers = localStorage.getItem("players").split(",");
     let tableRows = document.body.querySelectorAll("table tr");
-    for (let i = 0; i < leaderBoardPlayers.length; i++)
-        tableRows[i + 1].innerHTML = `<td>${leaderBoardPlayers[i].name}</td>\n<td>${leaderBoardPlayers[i].score}</td>\n<td>${leaderBoardPlayers[i].attempts}</td>\n`;
+    for (let i = 0; i < leaderBoardPlayers.length; i++) {
+        let temp = leaderBoardPlayers[i].split("-");
+        tableRows[i + 1].innerHTML = `<td>${temp[0]}</td>\n<td>${temp[1]}</td>\n<td>${temp[2]}</td>\n`;
+    }
 };
 leaderBoardShowPlayers();
 
@@ -125,7 +128,6 @@ let loadQuestion = (answer) => {
         collectScores(answer);
         if (currentQuestionNumber == 11)
             return finalScoreDisplay();
-        console.log(currentQuestionNumber);
         const question_text = document.body.querySelector("#question-text p");
         const options = document.body.querySelectorAll(".answer");
         const qustion_number = document.body.querySelector("#question-num");
@@ -158,7 +160,6 @@ let collectScores = (answer) => {
     if (answer == "next")
         return answers.push(0);
     answer = answer.substr(answer.length - 1);
-    console.log(questionBank[currentQuestionNumber - 2].correct , answer , currentQuestionNumber);
     if (answer == questionBank[currentQuestionNumber - 2].correct)
         answers.push(1);
     else answers.push(0);
@@ -169,5 +170,72 @@ let calculateScore = () => {
     let sum = 0;
     for (let i = 0; i < answers.length; i++)
         sum += answers[i];
+    storeScores(sum);
     return sum;
-}
+};
+
+// store users scores and attempts
+let storeScores = (score) => {
+    let tempPlayers = localStorage.getItem("players");
+    if(!tempPlayers){
+        return emptyHandle(score);
+    }
+
+    tempPlayers = tempPlayers.split(",");
+    let i;
+    let higher = -1;
+    for(i = 0 ; i < tempPlayers.length ; i++){
+        let temp = tempPlayers[i].split("-");
+        if(temp[0] == currentName)
+            break;
+        if(score >= temp[1] && higher == -1)
+            higher = i;
+    }
+
+    if(i < tempPlayers.length)
+        playerExists(tempPlayers , score , i);
+    else if(higher != -1 || tempPlayers.length < 5)
+        PlayerNotExists(tempPlayers , score , higher);
+};
+
+// handle the case when the players doesn't exist in leaderboard
+let PlayerNotExists = (tempPlayers , score , index) => {
+    if(tempPlayers.length >= 5)
+        tempPlayers.pop();
+    let tempStr = "";
+
+    for(let i = 0 ; i < tempPlayers.length ; i++){
+        if(index == i)
+            tempStr += `${currentName}-${score}-1,`;
+        tempStr += tempPlayers[i] + (i == tempPlayers.length - 1 && index != tempPlayers.length && index != -1 ?"" :",");
+    }
+    if(index == tempPlayers.length || index == -1)
+        tempStr += `${currentName}-${score}-1`;
+    localStorage.setItem("players" , tempStr);
+};
+
+// handle the case when the players exists in leaderboard
+let playerExists = (tempPlayers , score , index) => {
+    let temp = tempPlayers[index].split("-");
+    tempPlayers[index] = `${temp[0]}-${temp[1] > score ?temp[1] :score}-${temp[2] - 0 + 1}`;
+    let tempStr = "";
+    // sort the leaderboard when existing players is modified
+    if(temp[1] < score)
+        for(let i = index ; i > 0 ; i--){
+            if(score >= tempPlayers[i - 1].split("-")[1]){
+                let tempItem = tempPlayers[i - 1];
+                tempPlayers[i - 1] = tempPlayers[i];
+                tempPlayers[i] = tempItem;
+            }
+            else break;
+        }
+    for(let i = 0 ; i < tempPlayers.length ; i++){
+        tempStr += tempPlayers[i] + (i == tempPlayers.length - 1 ?"" :",");
+    }
+    localStorage.setItem("players" , tempStr);
+};
+
+// handle the case when the leaderboard is empty
+let emptyHandle = (score) => {
+    localStorage.setItem("players" , `${currentName}-${score}-1`);
+};
